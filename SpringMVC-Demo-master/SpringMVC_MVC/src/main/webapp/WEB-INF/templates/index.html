@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>首页</h1>
+  <a th:href="@{/testScopeByServlet}">通过ServletAPI向request域对象传递对象</a><br/>
+  <a th:href="@{/testModelAndView}">通过ModelAndView向request域对象传递对象</a><br/>
+  <a th:href="@{/testModel}">通过Model向request域对象传递对象</a><br/>
+  <a th:href="@{/testMap}">通过Map向request域对象传递对象</a><br/>
+  <a th:href="@{/testModelMap}">通过testModelMap向request域对象传递对象</a><br/>
+  <a th:href="@{/testSession}">通过Session向Session域对象传递对象</a><br/>
+  <a th:href="@{/testApplication}">通过Application向Application域对象传递对象</a><br/><br/>
+  <a th:href="@{/testView}">通过thymeleaf跳转</a><br/>
+  <a th:href="@{/testForward}">通过forward跳转</a><br/>
+  <a th:href="@{/testRedirect}">通过Redirect跳转</a><br/><br/>
+  <a th:href="@{/user}">查询所有用户信息</a><br/>
+  <a th:href="@{/user/1}">根据id查询所有用户信息</a><br/>
+
+  <h1>restful</h1>
+
+  <form th:action="@{/user}" method="post">
+    用户名：<input type="text" name="name">
+    密码：<input type="password" name="password">
+    邮箱：<input type="email" name="email">
+    年龄：<input type="text" name="age">
+    <input type="submit" value="提交">
+  </form>
+
+  <form th:action="@{/user}" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    用户名：<input type="text" name="name">
+    密码：<input type="password" name="password">
+    邮箱：<input type="email" name="email">
+    年龄：<input type="text" name="age">
+    <input type="submit" value="修改">
+  </form>
+
+<br/><h1>RequestBody</h1>
+  <form th:action="@{/testRequestBody}" method="post">
+    用户名：<input type="text" name="name">
+    密码：<input type="password" name="password">
+    邮箱：<input type="email" name="email">
+    年龄：<input type="text" name="age">
+    <input type="submit" value="修改">
+  </form><br/>
+  <h1>RequestEntity</h1>
+  <form th:action="@{/testRequestEntity}" method="post">
+    用户名：<input type="text" name="name">
+    密码：<input type="password" name="password">
+    邮箱：<input type="email" name="email">
+    年龄：<input type="text" name="age">
+    <input type="submit" value="修改">
+  </form>
+  <h1>testResponse</h1>
+  <a th:href="@{/testResponse}">通过testResponse对象响应浏览器数据</a><br/>
+  <a th:href="@{/testResponseBody}">通过testResponseBody对象响应浏览器数据</a><br/>
+  <a th:href="@{/testResponseUser}">通过ResponseBody对象响应浏览器JSON,User数据</a><br/>
+
+  <h1>ajax</h1>
+  <div id="app">
+    <a th:href="@{/testAjax}" @click="testAjax">SpringMvc处理ajax</a><br>
+  </div>
+
+  <h1>testInterceptor</h1>
+  <a th:href="@{/testInterceptor}">测试拦截器</a><br>
+  <a th:href="@{/testExceptionHandler}">测试异常处理</a><br>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script type="text/javascript">
+    var vue = new Vue({
+      el:"#app",
+      methods:{
+        testAjax:function (event) {
+          axios({
+            method:"post",
+            url:event.target.href,
+            params:{
+              username:"admin",
+              password:"123456"
+            }
+          }).then(function (response) {
+            alert(response.data);
+          });
+          event.preventDefault();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
